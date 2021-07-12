@@ -1,4 +1,4 @@
-# Project Title : Grocery Management System
+# Project Title : Grocery Management Systems
 
 ### Module - 1 (Grocery's Stock)
 
