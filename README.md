@@ -6,7 +6,7 @@
 ```sql
 create table grocery(item_id int primary key, name varchar2(45) not null , category varchar2(23) , price number(8,2) not null , quantity int);
 ```
-#### Add Grocerie List
+#### Add Grocery List
 ```sql
 insert into grocery(item_id,name,category,price,quantity)values (101,'bengal gram(250g)','cereals and pulses',80,30);
 insert into grocery(item_id,name,category,price,quantity)values (102,'green gram(250g)','cereals and pulses',70,30);
