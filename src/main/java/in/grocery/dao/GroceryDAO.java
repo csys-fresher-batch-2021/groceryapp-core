@@ -20,7 +20,7 @@ public class GroceryDAO {
 		
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "select product_id,product_name,category,price,quantity from grocery";
+			String sql = "select product_id,product_name,category,price,available_quantity from grocery";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			groceryList = new ArrayList<Grocery>();
@@ -43,6 +43,32 @@ public class GroceryDAO {
 		}
 		return groceryList;
 	}
+	
+	public static void addGrocery(int proId, String proName, String category, double price,double quantity) throws ClassNotFoundException, SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "insert into grocery(product_id,product_name,category,price,available_quantity)values(?,?,?,?,?)";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, proId);
+			ps.setString(2, proName);
+			ps.setString(3, category);
+			ps.setDouble(4, price);
+			ps.setDouble(5, quantity);
+			
+			int count = ps.executeUpdate();
+			if (count > 0) {
+				System.out.println(count + " row inserted");
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(ps, con);
+		}
+	}
+
 
 	
 }

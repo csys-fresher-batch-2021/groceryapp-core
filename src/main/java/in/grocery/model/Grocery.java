@@ -3,7 +3,6 @@ package in.grocery.model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import in.grocery.dao.EmployeeDAO;
 import in.grocery.dao.GroceryDAO;
 
 public class Grocery {
@@ -12,9 +11,9 @@ public class Grocery {
 	public String proName;
 	public String category;
 	public double price;
-	public int quantity;
+	public double quantity;
 	
-	public Grocery(int proId, String proName, String category, double price, int quantity) {
+	public Grocery(int proId, String proName, String category, double price, double quantity) {
 
 		this.proId = proId;
 		this.proName = proName;
@@ -37,6 +36,13 @@ public class Grocery {
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println("Exception:  " +e.getMessage() );
+			e.printStackTrace();
+		} 
+		
+		try {
+			GroceryDAO.addGrocery(210,"tomoto" ,"fruit", 20, 60);
+		} catch (SQLException | ClassNotFoundException e) {
+			
 			e.printStackTrace();
 		} 
 		
