@@ -1,6 +1,6 @@
 package in.grocery.dao;
 
-import in.grocery.model.AdminLogin;
+import in.grocery.model.Employee;
 
 public class AdminListDAOTest {
 	
@@ -12,7 +12,7 @@ public class AdminListDAOTest {
 
 	public static void isValidAdmin() {
 		try {
-			AdminLogin.admin(9874563210l, "rajesh1234");
+			Employee.admin(9874563210l, "rajesh1234");
 			System.out.println("Valid Admin Details");
 		} catch (Exception e) {
 			String errorMessage=e.getMessage();
@@ -23,7 +23,7 @@ public class AdminListDAOTest {
 	
 	public static void isInValidAdmin() {
 		try {
-			AdminLogin.admin(98745630l, "rajesh1234");
+			Employee.admin(98745630l, "rajesh1234");
 			System.out.println("Valid Admin Details");
 		} catch (Exception e) {
 			String errorMessage=e.getMessage();

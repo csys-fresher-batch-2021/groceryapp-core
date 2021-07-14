@@ -3,7 +3,7 @@ package in.grocery.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import in.grocery.dao.CustomerLogin;
+import in.grocery.dao.CustomerDAO;
 import in.grocery.service.IsValiddata;
 
 public class CustomerLoginTest {
@@ -11,7 +11,8 @@ public class CustomerLoginTest {
 	public static void main(String[] args) throws Exception {
 		
 		//checkCustomerDetails();
-		addCustomer();
+		//addCustomer();
+		testShowCustomerDetails();
 		
 	}
 
@@ -20,16 +21,22 @@ public class CustomerLoginTest {
 		String password = "Elumalai12.#";
 		String name = "elumalai";
 		if(IsValiddata.isValid(mobileNo, password, name)) {
-			CustomerLogin.addCustomer(305,name,mobileNo,password);
+			CustomerDAO.addCustomer(305,name,mobileNo,password);
 		}
 	}
 
 	public static void checkCustomerDetails() throws Exception, SQLException, ClassNotFoundException {
-		boolean temp = CustomerLogin.isCustomer(9824356128l, "grocer123");
+		boolean temp = CustomerDAO.isCustomer(9824356128l, "grocer123");
 		System.out.println(temp);
 		
-		List<Long> cusMobileNo = CustomerLogin.getMobileNumber();
+		List<Long> cusMobileNo = CustomerDAO.getCustomerMobileNumber();
 		System.out.println(cusMobileNo);
+	}
+	
+	public static void testShowCustomerDetails() throws ClassNotFoundException, SQLException {
+		
+		CustomerDAO.showCustomerDetails();
+		
 	}
 
 }

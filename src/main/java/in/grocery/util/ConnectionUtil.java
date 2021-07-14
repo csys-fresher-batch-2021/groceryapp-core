@@ -2,6 +2,8 @@ package in.grocery.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ConnectionUtil {
@@ -23,6 +25,34 @@ public class ConnectionUtil {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+	}
+	public static void close(PreparedStatement pst, Connection connection) {
+		try {
+			if(pst !=null) {
+				pst.close();
+			}
+			if(connection !=null) {
+				connection.close();
+			}
+		} catch (SQLException e) {
+			//suppress exception
+		}
+	}
+	
+	public static void close(ResultSet rs, PreparedStatement pst, Connection connection) {
+		try {
+			if(rs != null) {
+				rs.close();
+			}
+			if(pst !=null) {
+				pst.close();
+			}
+			if(connection !=null) {
+				connection.close();
+			}
+		} catch (SQLException e) {
+			//suppress exception
 		}
 	}
 

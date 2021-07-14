@@ -1,149 +1,151 @@
 # Project Title : Grocery Management System
 
-### Module - 1 (Grocery's Stock)
+### Module - 1 (Stock Employee Details) 
 
-#### Grocery List
+#### Stock Employee Details
 ```sql
-create table grocery (
-item_id int primary key,
-item_name varchar2(45) not null, 
-category varchar2(23) not null, 
-price number(8,2) not null, 
-quantity int
+create table stock_employee(
+emp_id int not null,
+emp_name varchar2(45),
+emp_address varchar2(45) not null,
+emp_mobile_no number(10) not null,
+emp_password varchar2(20) not null,
 );
 ```
+
+#### Adding Employee's Details
+```sql
+insert into stock_employee values(100,'rajesh','tiruttani',9874563210,'Rajesh1234#');
+insert into stock_employee values(101,'lavanya','chennai',9274563210,'Lavanya123@');
+insert into stock_employee values(102,'nelliyarasan','chennai',8874563210,'Nelliyarasan12$');
+insert into stock_employee values(103,'elumalai','chennai',6874563210,'Elumalai234%');
+```
+
+#### Display Stock Employee Details
+```sql
+select * from stock_employee;
+```
+
+#### Update Password
+```sql
+update stock_employee set password='rajesh@.12' where admin_mobile_no = 9874563210 ;
+```
+
+
+### Module - 2 (Grocery's Stock)
+
+#### Grocery_Product_List
+```sql
+create table grocery (
+product_id int primary key,
+product_name varchar2(45) not null, 
+category varchar2(23) not null, 
+price number(8,2) not null, 
+available_quantity int
+);
+```
+
 #### Add Groceries
 ```sql
-insert into grocery(item_id,item_name,category,price,quantity)values (101,'bengal gram(250g)','cereals and pulses',80,30);
-insert into grocery(item_id,item_name,category,price,quantity)values (102,'green gram(250g)','cereals and pulses',70,30);
-insert into grocery(item_id,item_name,category,price,quantity)values (103,'corn flour(250g)','flours',40,30);
-insert into grocery(item_id,item_name,category,price,quantity)values (104,'onion (1kg)','vegetables',110,40);
-insert into grocery(item_id,item_name,category,price,quantity)values (105,'apple (1kg)','fruits',80,10);
-insert into grocery(item_id,item_name,category,price,quantity)values (106,'cloves (10g)','spices',30,40);
-insert into grocery(item_id,item_name,category,price,quantity)values (107,'almond','dry fruits',30,60);
-insert into grocery(item_id,item_name,category,price,quantity)values (108,'semolina (250g)','miscellaneous',50,30);
+insert into grocery(product_id,product_name,category,price,available_quantity)values (201,'bengal gram(250g)','cereals and pulses',80,30);
+insert into grocery(product_id,product_name,category,price,available_quantity)values (202,'green gram(250g)','cereals and pulses',70,30);
+insert into grocery(product_id,product_name,category,price,available_quantity)values (203,'corn flour(250g)','flours',40,30);
+insert into grocery(product_id,product_name,category,price,available_quantity)values (204,'onion (1kg)','vegetables',110,40);
+insert into grocery(product_id,product_name,category,price,available_quantity)values (205,'apple (1kg)','fruits',80,10);
+insert into grocery(product_id,product_name,category,price,available_quantity)values (206,'cloves (10g)','spices',30,40);
+insert into grocery(product_id,product_name,category,price,available_quantity)values (207,'almond','dry fruits',30,60);
+insert into grocery(product_id,product_name,category,price,available_quantity)values (208,'semolina (250g)','miscellaneous',50,30);
 ```
+
 #### Display Grocery List
 ```sql
 select * from grocery;
 ```
+
 #### To Remove Grocery:
 ```sql
-delete grocery where id=104;
+delete from grocery where product_id=104;
 ```
+
 #### To Update Grocery Item:
 ```sql
-update grocery set price = 50 where id= 105;
-update grocery set  quantity = quantity *5 where id = 106;
+update grocery set price = 50 where product_id= 105;
+update grocery set  available_quantity = 55 where product_id = 106;
 ```
 
-### Module - 2 (Customer Cart)
 
-#### Customer's Items Details
-```sql
-create table customer_items (
-customer_id int primary key ,
-customer_name varchar2(45) not null, 
-item_id int not null, 
-item_name varchar2(45) not null , 
-category varchar2(23) , 
-quantity number , 
-price number(8,2) not null ,
-purchase_time timestamp default systimestamp,
-foreign key (item_id) references grocery(item_id),
-check (price > 0)
-);
-```
-#### Add Customer's Items
-```sql
-insert into customer_items(customer_id,customer_name,item_id,name,category,quantity,price) values (300,'rajesh',105,'apple (1kg)','fruits',1.5,80,14.4,134.4);
-insert into customer_items(customer_id,customer_name,item_id,name,category,quantity,price) values (300,'rajesh',104,'onion (1kg)','vegetables',2,110);
-insert into customer_items(customer_id,customer_name,item_id,name,category,quantity,price) values (301,'raj',106,'cloves(10kg)','spices',1,30);
-insert into customer_items(customer_id,customer_name,item_id,name,category,quantity,price) values (302,'ram',108,'semolina(250g)','miscellaneous',1.5,50);
-insert into customer_items(customer_id,customer_name,item_id,name,category,quantity,price) values (301,'raj',107,'almond','dry fruits',3,30);
-insert into customer_items(customer_id,customer_name,item_id,name,category,quantity,price) values (303,'ramesh',110,'corn flour(250g)','flours',2,40);
-```
-#### Display Customer's Items
-```sql
-select customer_id,customer_name,item_id,name,category,quantity,price,(price*quantity)*(18/100) gst_price,
-(((price*quantity)*(18/100))+price*quantity) net_price,purchase_time from customer_items;
-```
-
-#### Delete customer_items:
-```sql
-delete customer_items where item_id = 300;
-```
-
-#### Update customer_items:
-```sql
-update customer_items set gst_price = (price*quantity)*18/100;
-update customer_items set net_price = (price*quantity)+gst_price;
-```
-
-#### Display Purchase History For Each Customer
-```sql
-select customer_id,sum(price*quantity) gross_total,sum((price*quantity)*(18/100)) total_gst,sum((((price*quantity)*(18/100))+price*quantity)) grant_total
-from customer_items where customer_id=301 group by customer_id;
-```
-### Module - 3 (Customer Login)
+### Module - 3 (Customer Details)
 
 #### Login For Customers
 ```sql
-create table cus_login (
-customer_id int not null , 
-customer_name varchar2(45) not null,
-mobile_no number not null,
-password varchar2(20) not null,
-foreign key customer_id references customer_items(customer_id)
+create table grocery_customers (
+cus_id int primary key, 
+cus_name varchar2(45) not null,
+cus_address varchar2(45) not null,
+cus_mobile_no number not null,
+cus_password varchar2(20) not null,
+cus_status varchar2(22) default 'ACTIVE',
+check(status in ('ACTIVE','INACTIVE'))
 );
 ```
 
 #### Adding Customer's Details
 ```sql
-insert into cus_login values(301,'raj',1234567890,'grocer123');
-insert into cus_login values(300,'rajesh',1234567890,'sanjay123');
-insert into cus_login values(302,'ram',1234567890,'mani123');
-insert into cus_login values(303,'ramesh',1234567890,'karthi123');
-insert into cus_login values(304,'raju',1234567890,'vigne123');
+insert into grocery_customers(cus_id,cus_name,cus_address,cus_mobile_no,cus_password) values(301,'raj',1234567890,'Grocer123@');
+insert into grocery_customers(cus_id,cus_name,cus_address,cus_mobile_no,cus_password) values(300,'rajesh',8465528191,'sanjay123');
+insert into grocery_customers(cus_id,cus_name,cus_address,cus_mobile_no,cus_password) values(302,'ram',1234567890,'mani123');
+insert into grocery_customers(cus_id,cus_name,cus_address,cus_mobile_no,cus_password) values(303,'ramesh',1234567890,'karthi123');
+insert into grocery_customers(cus_id,cus_name,cus_address,cus_mobile_no,cus_password) values(304,'raju',1234567890,'vigne123');
 ```
+
 #### Display Customer's Details
 ```sql
-select * form cus_login;
+select * form grocery_customers;
 ```
-#### Remove a Customer
+
+#### Inactive The Customer
 ```sql
-delete cus_login where customer_id=300;
+update grocery_customers set cus_status='INACTIVE' where cus_id=301;
 ```
+
 #### Update Password From Customer
 ```sql
-update cus_login set password='Welcome#6' where contact_num=1234567890;
+update grocery_customers set cus_password='Welcome#6' where cus_mobile_no=1234567890;
 ```
 
-### Module - 4 (Admin Login)
 
-#### Login For Admin
+### Module - 4 (Customer Cart)
+
+#### Customer's Items Details
 ```sql
-create table admin_login (
-admin_name varchar2(45),
-admin_mobile_no number(10) not null,
-admin_password varchar2(20) not null
+create table customer_items (
+cus_id int primary key ,
+product_id int not null,   
+price number(8,2) not null ,
+quantity number,
+gst_price number,
+net_price number,
+purchase_time timestamp default systimestamp,
+constraint cus_fk1 foreign key (cus_id) references grocery_customers(cus_id),
+constraint cus_fk2 foreign key (product_id) references grocery(product_id),
+constraint cus_ck check (price > 0)
 );
 ```
 
-#### Adding Admin's Details
+#### Add Customer's Items
 ```sql
-insert into admin_login values('rajesh',9874563210,'rajesh1234');
-insert into admin_login values('lavanya',9274563210,'lavanya123');
-insert into admin_login values('nelliyarasan',8874563210,'nelliyarasan12');
-insert into admin_login values('elumalai',6874563210,'elumalai234');
+insert into customer_items(cus_id,product_id,price,quantity,gst_price,net_price) values (300,205,80,1.5,14.4,134.4);
+insert into customer_items(cus_id,product_id,price,quantity,gst_price,net_price) values (301,206,30,1,5.4,35.4);
+insert into customer_items(cus_id,product_id,price,quantity,gst_price,net_price) values (302,208,50,1.5,13.5,88.5);
+insert into customer_items(cus_id,product_id,price,quantity,gst_price,net_price) values (303,207,30,3,16.2,106.2);
 ```
 
-#### Display Admin's Details
+#### Display Customer's Items
 ```sql
-select * from admin_login;
+select cus_id,product_id,name,price,quantity,gst_price,net_price,purchase_time from customer_items;
 ```
 
-#### Update password
+#### Display Purchase History Customers
 ```sql
-update admin_login set password='rajesh@.12' where admin_mobile_no = 9874563210 ;
+select cus_id,sum(price) price,sum(gst_price) total_gst,sum(net_price) grant_total from customer_items group by cus_id order by sum(net_price) desc;
 ```
