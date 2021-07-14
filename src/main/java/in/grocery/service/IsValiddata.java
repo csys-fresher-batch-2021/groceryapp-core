@@ -2,7 +2,7 @@ package in.grocery.service;
 
 import in.grocery.validator.MobileNoValidation;
 import in.grocery.validator.PasswordValidation;
-import in.grocery.validator.StringValidation;
+import in.grocery.validator.NameValidation;
 
 public class IsValiddata {
 	
@@ -18,7 +18,7 @@ public class IsValiddata {
 			e.printStackTrace();
 		}
 		boolean result2=PasswordValidation.checkPassword(Password);
-		boolean result3=StringValidation.checkString(name);
+		boolean result3=NameValidation.checkName(name);
 		//System.out.println(result1+"  "+result2+"  "+result3);
 		if(result1 && result2 && result3) {
 			flag=true;

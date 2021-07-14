@@ -11,8 +11,9 @@ public class CustomerItemsDAO {
 	public static void addCustomerItems(int cusId, int proId, double price, double quantity) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
-		double gstPrice = (price*quantity)*(18/100);
+		double gstPrice = (price*quantity)*(18.0/100.0);
 		double netPrice = (price*quantity)+gstPrice;
+		System.out.println(gstPrice+"   "+netPrice);
 		try {
 			con = ConnectionUtil.getConnection();
 			String sql = "insert into customer_items(cus_id,product_id,price,quantity,gst_price,net_price) values(?,?,?,?,?,?)";

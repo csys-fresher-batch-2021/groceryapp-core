@@ -20,8 +20,9 @@ public class CustomerLoginTest {
 		long mobileNo = 6987452310l;
 		String password = "Elumalai12.#";
 		String name = "elumalai";
+		String address="chennai";
 		if(IsValiddata.isValid(mobileNo, password, name)) {
-			CustomerDAO.addCustomer(305,name,mobileNo,password);
+			CustomerDAO.addCustomer(305,name,address, mobileNo,password);
 		}
 	}
 

@@ -1,12 +1,12 @@
 package in.grocery.validator;
 
-public class StringValidationTest {
+public class NameValidationTest {
 
 	static void isValidString() {
 
 		String name = "rajesh";
 
-		if (StringValidation.checkString(name)) {
+		if (NameValidation.checkName(name)) {
 			System.out.println("Valid String Data");
 		} else {
 			System.out.println("Invalid String Data");
@@ -17,7 +17,7 @@ public class StringValidationTest {
 
 		String name = "";
 
-		if (StringValidation.checkString(name)) {
+		if (NameValidation.checkName(name)) {
 			System.out.println("Valid String Data");
 		} else {
 			System.out.println("Invalid String Data");
