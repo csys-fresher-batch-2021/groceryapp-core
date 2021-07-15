@@ -14,10 +14,10 @@ public class Customers {
 	Long cusMobileNo;
 	String cusPassword;
 	String cusStatus;
-	
+
 	public Customers(int cusId, String cusName, String cusAddress, Long cusMobileNo, String cusPassword,
 			String cusStatus) {
-		
+
 		this.cusId = cusId;
 		this.cusName = cusName;
 		this.cusAddress = cusAddress;
@@ -25,7 +25,7 @@ public class Customers {
 		this.cusPassword = cusPassword;
 		this.cusStatus = cusStatus;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Customers [cusId=" + cusId + ", cusName=" + cusName + ", cusAddress=" + cusAddress + ", cusMobileNo="
@@ -33,16 +33,14 @@ public class Customers {
 	}
 
 	public static void main(String[] args) {
-		
-		/*try {
-			ArrayList<Customers> showCustomerDetails = CustomerDAO.showCustomerDetails();
-			for (Customers customers : showCustomerDetails) {
-				System.out.println(customers);
-			}
-		} catch (SQLException | ClassNotFoundException e) {
-			System.out.println("Exception:  " +e.getMessage() );
-			e.printStackTrace();
-		} */
+
+		/*
+		 * try { ArrayList<Customers> showCustomerDetails =
+		 * CustomerDAO.showCustomerDetails(); for (Customers customers :
+		 * showCustomerDetails) { System.out.println(customers); } } catch (SQLException
+		 * | ClassNotFoundException e) { System.out.println("Exception:  "
+		 * +e.getMessage() ); e.printStackTrace(); }
+		 */
 		try {
 			CustomerDAO.updateInactiveCustomer(303);
 		} catch (ClassNotFoundException e) {
@@ -53,5 +51,5 @@ public class Customers {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

@@ -69,6 +69,31 @@ public class EmployeeDAO {
 		return employeeList;
 	}
 
+	public static void addEmployee(int empId, String empName, String empAddress, Long empMobileNO, String empPassword)
+			throws ClassNotFoundException, SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "insert into stock_employee(emp_id,emp_name,emp_address,emp_mobile_no,emp_password) values(?,?,?,?,?)";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, empId);
+			ps.setString(2, empName);
+			ps.setString(3, empAddress);
+			ps.setLong(4, empMobileNO);
+			ps.setString(5, empPassword);
+
+			int count = ps.executeUpdate();
+			if (count > 0) {
+				System.out.println(count + " row inserted");
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(ps, con);
+		}
+	}
 
 	public static void updateEmployeePassword(Long mobileNo, String empPassword)
 			throws ClassNotFoundException, SQLException {
@@ -92,9 +117,8 @@ public class EmployeeDAO {
 			ConnectionUtil.close(ps, con);
 		}
 	}
-	
-	public static void removeEmployee(int empId)
-			throws ClassNotFoundException, SQLException {
+
+	public static void removeEmployee(int empId) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		try {

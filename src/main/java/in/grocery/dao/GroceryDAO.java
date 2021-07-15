@@ -42,9 +42,35 @@ public class GroceryDAO {
 		}
 		return groceryList;
 	}
-	
-	public static void removeGrocery(int proId)
+
+	// Developed by Nelliyarasan
+	public static void addGrocery(int proId, String proName, String category, double price, double quantity)
 			throws ClassNotFoundException, SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "insert into grocery(product_id,product_name,category,price,available_quantity)values(?,?,?,?,?)";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, proId);
+			ps.setString(2, proName);
+			ps.setString(3, category);
+			ps.setDouble(4, price);
+			ps.setDouble(5, quantity);
+
+			int count = ps.executeUpdate();
+			if (count > 0) {
+				System.out.println(count + " row inserted");
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(ps, con);
+		}
+	}
+
+	public static void removeGrocery(int proId) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		try {
@@ -64,9 +90,8 @@ public class GroceryDAO {
 			ConnectionUtil.close(ps, con);
 		}
 	}
-	
-	public static void updateGroceryPrice(int proId, double proPrice)
-			throws ClassNotFoundException, SQLException {
+
+	public static void updateGroceryPrice(int proId, double proPrice) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		try {
@@ -75,7 +100,7 @@ public class GroceryDAO {
 			ps = con.prepareStatement(sql);
 			ps.setDouble(1, proPrice);
 			ps.setInt(2, proId);
-			
+
 			int count = ps.executeUpdate();
 			if (count > 0) {
 				System.out.println(count + " row updated");
@@ -87,7 +112,7 @@ public class GroceryDAO {
 			ConnectionUtil.close(ps, con);
 		}
 	}
-	
+
 	public static void updateGroceryQuantity(int proId, double proQuantity)
 			throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
@@ -98,7 +123,7 @@ public class GroceryDAO {
 			ps = con.prepareStatement(sql);
 			ps.setDouble(1, proQuantity);
 			ps.setInt(2, proId);
-			
+
 			int count = ps.executeUpdate();
 			if (count > 0) {
 				System.out.println(count + " row updated");

@@ -67,7 +67,7 @@ public class CustomerDAO {
 			ps.setString(3, customerAddress);
 			ps.setLong(4, mobileNo);
 			ps.setString(5, password);
-			
+
 			int count = ps.executeUpdate();
 			if (count > 0) {
 				System.out.println(count + " row inserted");
@@ -85,7 +85,7 @@ public class CustomerDAO {
 		Connection con = null;
 		ResultSet rs = null;
 		ArrayList<Customers> customersList = null;
-		
+
 		try {
 			con = ConnectionUtil.getConnection();
 			String sql = "select cus_id,cus_name,cus_address,cus_mobile_no,cus_password,cus_status from grocery_customers";
@@ -93,15 +93,15 @@ public class CustomerDAO {
 			rs = ps.executeQuery();
 			customersList = new ArrayList<Customers>();
 			while (rs.next()) {
-				int id=rs.getInt(1);
-				String name=rs.getString(2);
-				String address=rs.getString(3);
-				Long mobileNo=rs.getLong(4);
-				String password=rs.getString(5);
-				String status=rs.getString(6);
-				
-				Customers customer = new Customers(id,name,address,mobileNo,password,status);
-				//System.out.println(customer);
+				int id = rs.getInt(1);
+				String name = rs.getString(2);
+				String address = rs.getString(3);
+				Long mobileNo = rs.getLong(4);
+				String password = rs.getString(5);
+				String status = rs.getString(6);
+
+				Customers customer = new Customers(id, name, address, mobileNo, password, status);
+				// System.out.println(customer);
 				customersList.add(customer);
 			}
 
@@ -121,7 +121,7 @@ public class CustomerDAO {
 			String sql = "update grocery_customers set cus_status='INACTIVE' where cus_id=?";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, customerId);
-			
+
 			int count = ps.executeUpdate();
 			if (count > 0) {
 				System.out.println(count + " row updated");
@@ -144,7 +144,7 @@ public class CustomerDAO {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, cus_password);
 			ps.setLong(2, mobileNo);
-			
+
 			int count = ps.executeUpdate();
 			if (count > 0) {
 				System.out.println(count + " row updated");
