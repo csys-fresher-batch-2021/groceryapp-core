@@ -17,7 +17,7 @@ public class GroceryDAO {
 		Connection con = null;
 		ResultSet rs = null;
 		ArrayList<Grocery> groceryList = null;
-		
+
 		try {
 			con = ConnectionUtil.getConnection();
 			String sql = "select product_id,product_name,category,price,available_quantity from grocery";
@@ -25,14 +25,13 @@ public class GroceryDAO {
 			rs = ps.executeQuery();
 			groceryList = new ArrayList<Grocery>();
 			while (rs.next()) {
-				int id=rs.getInt(1);
-				String name=rs.getString(2);
-				String category=rs.getString(3);
-				double price=rs.getDouble(4);
-				int quantity=rs.getInt(5);
-				
-				Grocery grocery = new Grocery(id,name,category,price,quantity);
-				//System.out.println(grocery);
+				int id = rs.getInt("product_id");
+				String name = rs.getString("product_name");
+				String category = rs.getString("category");
+				double price = rs.getDouble("price");
+				int quantity = rs.getInt("available_quantity");
+
+				Grocery grocery = new Grocery(id, name, category, price, quantity);
 				groceryList.add(grocery);
 			}
 
@@ -44,22 +43,65 @@ public class GroceryDAO {
 		return groceryList;
 	}
 	
-	public static void addGrocery(int proId, String proName, String category, double price,double quantity) throws ClassNotFoundException, SQLException {
+	public static void removeGrocery(int proId)
+			throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "insert into grocery(product_id,product_name,category,price,available_quantity)values(?,?,?,?,?)";
+			String sql = "delete grocery where product_id = ?";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, proId);
-			ps.setString(2, proName);
-			ps.setString(3, category);
-			ps.setDouble(4, price);
-			ps.setDouble(5, quantity);
+
+			int count = ps.executeUpdate();
+			if (count > 0) {
+				System.out.println(count + " row deleted");
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(ps, con);
+		}
+	}
+	
+	public static void updateGroceryPrice(int proId, double proPrice)
+			throws ClassNotFoundException, SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "update grocery set price = ? where product_id= ?";
+			ps = con.prepareStatement(sql);
+			ps.setDouble(1, proPrice);
+			ps.setInt(2, proId);
 			
 			int count = ps.executeUpdate();
 			if (count > 0) {
-				System.out.println(count + " row inserted");
+				System.out.println(count + " row updated");
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(ps, con);
+		}
+	}
+	
+	public static void updateGroceryQuantity(int proId, double proQuantity)
+			throws ClassNotFoundException, SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "update grocery set available_quantity = ? where product_id= ?";
+			ps = con.prepareStatement(sql);
+			ps.setDouble(1, proQuantity);
+			ps.setInt(2, proId);
+			
+			int count = ps.executeUpdate();
+			if (count > 0) {
+				System.out.println(count + " row updated");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -69,6 +111,4 @@ public class GroceryDAO {
 		}
 	}
 
-
-	
 }

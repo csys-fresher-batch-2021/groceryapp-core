@@ -28,7 +28,12 @@ select * from stock_employee;
 
 #### Update Password
 ```sql
-update stock_employee set password='rajesh@.12' where admin_mobile_no = 9874563210 ;
+update stock_employee set emp_password='rajesh@.12' where emp_mobile_no = 9874563210 ;
+```
+
+#### Remove Employee 
+```sql
+delete stock_employee where emp_mobile_no=100;
 ```
 
 
@@ -119,7 +124,7 @@ update grocery_customers set cus_password='Welcome#6' where cus_mobile_no=123456
 #### Customer's Items Details
 ```sql
 create table customer_items (
-cus_id int primary key ,
+cus_id int ,
 product_id int not null,   
 price number(8,2) not null ,
 quantity number,
@@ -142,7 +147,7 @@ insert into customer_items(cus_id,product_id,price,quantity,gst_price,net_price)
 
 #### Display Customer's Items
 ```sql
-select cus_id,product_id,name,price,quantity,gst_price,net_price,purchase_time from customer_items;
+select cus_id,product_id,price,quantity,gst_price,net_price,purchase_time from customer_items;
 ```
 
 #### Display Purchase History Customers

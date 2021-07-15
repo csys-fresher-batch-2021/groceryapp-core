@@ -36,13 +36,13 @@ public class EmployeeDAO {
 		}
 		return flag;
 	}
-	
+
 	public static ArrayList<Employee> showEmployeeDetails() throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;
 		ArrayList<Employee> employeeList = null;
-		
+
 		try {
 			con = ConnectionUtil.getConnection();
 			String sql = "select emp_id,emp_name,emp_address,emp_mobile_no,emp_password from stock_employee";
@@ -50,14 +50,14 @@ public class EmployeeDAO {
 			rs = ps.executeQuery();
 			employeeList = new ArrayList<Employee>();
 			while (rs.next()) {
-				int id=rs.getInt(1);
-				String name=rs.getString(2);
-				String address=rs.getString(3);
-				Long mobileNo=rs.getLong(4);
-				String password=rs.getString(5);
-				
-				Employee employee = new Employee(id,name,address,mobileNo,password);
-				//System.out.println(customer);
+				int id = rs.getInt("emp_id");
+				String name = rs.getString("emp_name");
+				String address = rs.getString("emp_address");
+				Long mobileNo = rs.getLong("emp_mobile_no");
+				String password = rs.getString("emp_password");
+
+				Employee employee = new Employee(id, name, address, mobileNo, password);
+				// System.out.println(customer);
 				employeeList.add(employee);
 			}
 
@@ -67,6 +67,52 @@ public class EmployeeDAO {
 			ConnectionUtil.close(rs, ps, con);
 		}
 		return employeeList;
+	}
+
+
+	public static void updateEmployeePassword(Long mobileNo, String empPassword)
+			throws ClassNotFoundException, SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "update stock_employee set emp_password=? where emp_mobile_no = ?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, empPassword);
+			ps.setLong(2, mobileNo);
+
+			int count = ps.executeUpdate();
+			if (count > 0) {
+				System.out.println(count + " row updated");
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(ps, con);
+		}
+	}
+	
+	public static void removeEmployee(int empId)
+			throws ClassNotFoundException, SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "delete stock_employee where emp_id = ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, empId);
+
+			int count = ps.executeUpdate();
+			if (count > 0) {
+				System.out.println(count + " row deleted");
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(ps, con);
+		}
 	}
 
 }

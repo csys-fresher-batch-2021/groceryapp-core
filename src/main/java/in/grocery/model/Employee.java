@@ -30,28 +30,26 @@ public class Employee {
 				+ empMobileNo + ", empPassword=" + empPassword + "]";
 	}
 
-	public static boolean admin(long mobileNumber, String password) throws Exception {
-		boolean isValidMobileNumber = MobileNoValidation.checkMobileNo(mobileNumber);
+	public static boolean checkMobileNoPassword(long mobileNumber, String password) throws Exception {
 		
+		boolean isValidMobileNumber = MobileNoValidation.checkMobileNo(mobileNumber);
 		boolean isValidPassword = PasswordValidation.checkPassword(password);
-		boolean isAdmin = false;
+		boolean flag = false;
+		
 		if (isValidMobileNumber && isValidPassword) {
 			try {
-				isAdmin = EmployeeDAO.isEmployee(mobileNumber, password);
+				flag = EmployeeDAO.isEmployee(mobileNumber, password);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		return isAdmin;
+		return flag;
 	}
 	
 	public static void main(String[] args) {
 		
 		try {
-			ArrayList<Employee> showEmployeeDetails = EmployeeDAO.showEmployeeDetails();
-			for (Employee employee : showEmployeeDetails) {
-				System.out.println(employee);
-			}
+			EmployeeDAO.updateEmployeePassword(9274563210l,"Lavanya@.");
 		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println("Exception:  " +e.getMessage() );
 			e.printStackTrace();

@@ -34,7 +34,7 @@ public class Customers {
 
 	public static void main(String[] args) {
 		
-		try {
+		/*try {
 			ArrayList<Customers> showCustomerDetails = CustomerDAO.showCustomerDetails();
 			for (Customers customers : showCustomerDetails) {
 				System.out.println(customers);
@@ -42,7 +42,16 @@ public class Customers {
 		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println("Exception:  " +e.getMessage() );
 			e.printStackTrace();
-		} 
+		} */
+		try {
+			CustomerDAO.updateInactiveCustomer(303);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

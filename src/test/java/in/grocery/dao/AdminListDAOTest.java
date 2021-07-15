@@ -12,7 +12,7 @@ public class AdminListDAOTest {
 
 	public static void isValidAdmin() {
 		try {
-			Employee.admin(9874563210l, "rajesh1234");
+			Employee.checkMobileNoPassword(9874563210l, "rajesh1234");
 			System.out.println("Valid Admin Details");
 		} catch (Exception e) {
 			String errorMessage=e.getMessage();
@@ -23,7 +23,7 @@ public class AdminListDAOTest {
 	
 	public static void isInValidAdmin() {
 		try {
-			Employee.admin(98745630l, "rajesh1234");
+			Employee.checkMobileNoPassword(98745630l, "rajesh1234");
 			System.out.println("Valid Admin Details");
 		} catch (Exception e) {
 			String errorMessage=e.getMessage();
