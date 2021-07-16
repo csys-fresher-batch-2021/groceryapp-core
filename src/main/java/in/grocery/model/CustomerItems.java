@@ -1,10 +1,6 @@
 package in.grocery.model;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-
-import in.grocery.dao.CustomerItemsDAO;
 
 public class CustomerItems {
 
@@ -32,20 +28,6 @@ public class CustomerItems {
 		this.gstPirce = gstPirce;
 		this.netPrice = netPrice;
 		this.purhaseTime = purhaseTime;
-	}
-
-	public static void main(String[] args) {
-
-		try {
-			ArrayList<CustomerItems> showCustomerItemsDetails = CustomerItemsDAO.showCustomerItemsDetails();
-			for (CustomerItems customerItems : showCustomerItemsDetails) {
-				System.out.println(customerItems);
-			}
-		} catch (SQLException | ClassNotFoundException e) {
-
-			e.printStackTrace();
-		}
-
 	}
 
 }

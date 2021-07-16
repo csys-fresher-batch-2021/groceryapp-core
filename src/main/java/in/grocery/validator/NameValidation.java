@@ -6,8 +6,9 @@ public class NameValidation {
 
 		if (name == null || name.trim().equals("")) {
 			return false;
+		} else {
+			return true;
 		}
-		return true;
 	}
 
 }

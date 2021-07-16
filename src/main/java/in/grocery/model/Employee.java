@@ -4,7 +4,6 @@ import in.grocery.validator.*;
 import in.grocery.dao.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class Employee {
 
@@ -43,17 +42,6 @@ public class Employee {
 			}
 		}
 		return flag;
-	}
-
-	public static void main(String[] args) {
-
-		try {
-			EmployeeDAO.updateEmployeePassword(9274563210l, "Lavanya@.");
-		} catch (SQLException | ClassNotFoundException e) {
-			System.out.println("Exception:  " + e.getMessage());
-			e.printStackTrace();
-		}
-
 	}
 
 }

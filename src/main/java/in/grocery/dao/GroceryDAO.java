@@ -5,14 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-import in.grocery.model.Employee;
 import in.grocery.model.Grocery;
 import in.grocery.util.ConnectionUtil;
+import in.grocery.util.Logger;
 
 public class GroceryDAO {
 
-	public static ArrayList<Grocery> showGroceryDetails() throws ClassNotFoundException, SQLException {
+	public static List<Grocery> showGroceryDetails() throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;
@@ -23,7 +24,7 @@ public class GroceryDAO {
 			String sql = "select product_id,product_name,category,price,available_quantity from grocery";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
-			groceryList = new ArrayList<Grocery>();
+			groceryList = new ArrayList<>();
 			while (rs.next()) {
 				int id = rs.getInt("product_id");
 				String name = rs.getString("product_name");
@@ -60,7 +61,7 @@ public class GroceryDAO {
 
 			int count = ps.executeUpdate();
 			if (count > 0) {
-				System.out.println(count + " row inserted");
+				Logger.debug(count + " row inserted");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -81,7 +82,7 @@ public class GroceryDAO {
 
 			int count = ps.executeUpdate();
 			if (count > 0) {
-				System.out.println(count + " row deleted");
+				Logger.debug(count + " row deleted");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -103,7 +104,7 @@ public class GroceryDAO {
 
 			int count = ps.executeUpdate();
 			if (count > 0) {
-				System.out.println(count + " row updated");
+				Logger.debug(count + " row updated");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -126,7 +127,7 @@ public class GroceryDAO {
 
 			int count = ps.executeUpdate();
 			if (count > 0) {
-				System.out.println(count + " row updated");
+				Logger.debug(count + " row updated");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {

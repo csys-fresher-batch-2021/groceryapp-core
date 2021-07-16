@@ -49,7 +49,7 @@ public class CustomerDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConnectionUtil.close(con);
+			ConnectionUtil.close(pst,con);
 		}
 		return userMobileNo;
 	}
@@ -70,7 +70,7 @@ public class CustomerDAO {
 
 			int count = ps.executeUpdate();
 			if (count > 0) {
-				System.out.println(count + " row inserted");
+				Logger.debug(count + " row inserted");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -80,7 +80,7 @@ public class CustomerDAO {
 		}
 	}
 
-	public static ArrayList<Customers> showCustomerDetails() throws ClassNotFoundException, SQLException {
+	public static List<Customers> showCustomerDetails() throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;
@@ -91,7 +91,7 @@ public class CustomerDAO {
 			String sql = "select cus_id,cus_name,cus_address,cus_mobile_no,cus_password,cus_status from grocery_customers";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
-			customersList = new ArrayList<Customers>();
+			customersList = new ArrayList<>();
 			while (rs.next()) {
 				int id = rs.getInt(1);
 				String name = rs.getString(2);
@@ -101,7 +101,6 @@ public class CustomerDAO {
 				String status = rs.getString(6);
 
 				Customers customer = new Customers(id, name, address, mobileNo, password, status);
-				// System.out.println(customer);
 				customersList.add(customer);
 			}
 
@@ -124,7 +123,7 @@ public class CustomerDAO {
 
 			int count = ps.executeUpdate();
 			if (count > 0) {
-				System.out.println(count + " row updated");
+				Logger.debug(count + " row updated");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -134,7 +133,7 @@ public class CustomerDAO {
 		}
 	}
 
-	public static void updateCustomerPassword(Long mobileNo, String cus_password)
+	public static void updateCustomerPassword(Long mobileNo, String cusPassword)
 			throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
@@ -142,12 +141,12 @@ public class CustomerDAO {
 			con = ConnectionUtil.getConnection();
 			String sql = "update grocery_customers set cus_password=? where cus_mobile_no=?";
 			ps = con.prepareStatement(sql);
-			ps.setString(1, cus_password);
+			ps.setString(1, cusPassword);
 			ps.setLong(2, mobileNo);
 
 			int count = ps.executeUpdate();
 			if (count > 0) {
-				System.out.println(count + " row updated");
+				Logger.debug(count + " row updated");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {

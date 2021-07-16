@@ -8,10 +8,15 @@ import java.sql.SQLException;
 
 public class ConnectionUtil {
 
-	static String driverClass = "oracle.jdbc.driver.OracleDriver";
-	static String url = "jdbc:oracle:thin:@192.168.0.20:1521:DBEBS12";
-	static String username = "apps";
-	static String password = "apps";
+	/**
+	 * Hiding my driverclass name , connection url , username and password 
+	 * For security purpose
+	 */
+	
+	static String driverClass = System.getenv("DB_DRIVER_NAME");
+	static String url = System.getenv("DB_URL"); 
+	static String username = System.getenv("DB_USERNAME");
+	static String password = System.getenv("DB_PW");
 
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		Class.forName(driverClass);

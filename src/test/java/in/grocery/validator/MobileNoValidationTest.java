@@ -1,5 +1,7 @@
 package in.grocery.validator;
 
+import in.grocery.util.Logger;
+
 public class MobileNoValidationTest {
 
 	public static void main(String[] args) {
@@ -11,10 +13,10 @@ public class MobileNoValidationTest {
 	public static void isValidMobileNo(long mn) {
 		try {
 			MobileNoValidation.checkMobileNo(mn);
-			System.out.println("Valid Mobile Number ");
+			Logger.debug("Valid Mobile Number ");
 		} catch (Exception e) {
 			String errorMessage = e.getMessage();
-			System.out.println("Exception :  " + errorMessage);
+			Logger.debug("Exception :  " + errorMessage);
 			e.printStackTrace();
 		}
 	}
@@ -22,10 +24,10 @@ public class MobileNoValidationTest {
 	public static void isInValidMobileNo(long mn) {
 		try {
 			MobileNoValidation.checkMobileNo(mn);
-			System.out.println("Valid Mobile Number ");
+			Logger.debug("Valid Mobile Number ");
 		} catch (Exception e) {
 			String errorMessage = e.getMessage();
-			System.out.println("Exception :  " + errorMessage);
+			Logger.debug("Exception :  " + errorMessage);
 			e.printStackTrace();
 		}
 	}

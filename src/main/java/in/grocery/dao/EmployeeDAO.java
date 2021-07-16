@@ -5,10 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-import in.grocery.model.Customers;
 import in.grocery.model.Employee;
 import in.grocery.util.ConnectionUtil;
+import in.grocery.util.Logger;
 
 public class EmployeeDAO {
 
@@ -37,7 +38,7 @@ public class EmployeeDAO {
 		return flag;
 	}
 
-	public static ArrayList<Employee> showEmployeeDetails() throws ClassNotFoundException, SQLException {
+	public static List<Employee> showEmployeeDetails() throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;
@@ -48,7 +49,7 @@ public class EmployeeDAO {
 			String sql = "select emp_id,emp_name,emp_address,emp_mobile_no,emp_password from stock_employee";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
-			employeeList = new ArrayList<Employee>();
+			employeeList = new ArrayList<>();
 			while (rs.next()) {
 				int id = rs.getInt("emp_id");
 				String name = rs.getString("emp_name");
@@ -57,7 +58,6 @@ public class EmployeeDAO {
 				String password = rs.getString("emp_password");
 
 				Employee employee = new Employee(id, name, address, mobileNo, password);
-				// System.out.println(customer);
 				employeeList.add(employee);
 			}
 
@@ -85,7 +85,7 @@ public class EmployeeDAO {
 
 			int count = ps.executeUpdate();
 			if (count > 0) {
-				System.out.println(count + " row inserted");
+				Logger.debug(count + " row inserted");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -108,7 +108,7 @@ public class EmployeeDAO {
 
 			int count = ps.executeUpdate();
 			if (count > 0) {
-				System.out.println(count + " row updated");
+				Logger.debug(count + " row updated");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -129,7 +129,7 @@ public class EmployeeDAO {
 
 			int count = ps.executeUpdate();
 			if (count > 0) {
-				System.out.println(count + " row deleted");
+				Logger.debug(count + " row deleted");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {

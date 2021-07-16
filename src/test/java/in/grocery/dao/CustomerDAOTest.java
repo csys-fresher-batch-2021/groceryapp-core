@@ -1,18 +1,21 @@
 package in.grocery.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-import in.grocery.dao.CustomerDAO;
+import in.grocery.model.Customers;
 import in.grocery.service.IsValiddata;
+import in.grocery.util.Logger;
 
-public class CustomerLoginTest {
+public class CustomerDAOTest {
 
 	public static void main(String[] args) throws Exception {
 
 		// checkCustomerDetails();
 		// addCustomer();
 		testShowCustomerDetails();
+		// testUpdateInactiveCustomer();
 
 	}
 
@@ -28,16 +31,31 @@ public class CustomerLoginTest {
 
 	public static void checkCustomerDetails() throws Exception, SQLException, ClassNotFoundException {
 		boolean temp = CustomerDAO.isCustomer(9824356128l, "grocer123");
-		System.out.println(temp);
+		Logger.debug(temp);
 
 		List<Long> cusMobileNo = CustomerDAO.getCustomerMobileNumber();
-		System.out.println(cusMobileNo);
+		Logger.debug(cusMobileNo);
 	}
 
-	public static void testShowCustomerDetails() throws ClassNotFoundException, SQLException {
+	public static void testShowCustomerDetails() {
 
-		CustomerDAO.showCustomerDetails();
+		ArrayList<Customers> showCustomerDetails;
+		try {
+			showCustomerDetails = CustomerDAO.showCustomerDetails();
+			for (Customers customers : showCustomerDetails) {
+				Logger.debug(customers);
+			}
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 
 	}
 
+	public static void testUpdateInactiveCustomer() {
+		try {
+			CustomerDAO.updateInactiveCustomer(303);
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -1,11 +1,5 @@
 package in.grocery.model;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import in.grocery.dao.CustomerDAO;
-
 public class Customers {
 
 	int cusId;
@@ -32,24 +26,5 @@ public class Customers {
 				+ cusMobileNo + ", cusPassword=" + cusPassword + ", cusStatus=" + cusStatus + "]";
 	}
 
-	public static void main(String[] args) {
-
-		/*
-		 * try { ArrayList<Customers> showCustomerDetails =
-		 * CustomerDAO.showCustomerDetails(); for (Customers customers :
-		 * showCustomerDetails) { System.out.println(customers); } } catch (SQLException
-		 * | ClassNotFoundException e) { System.out.println("Exception:  "
-		 * +e.getMessage() ); e.printStackTrace(); }
-		 */
-		try {
-			CustomerDAO.updateInactiveCustomer(303);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 }

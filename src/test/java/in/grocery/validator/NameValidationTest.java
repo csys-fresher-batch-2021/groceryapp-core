@@ -1,5 +1,7 @@
 package in.grocery.validator;
 
+import in.grocery.util.Logger;
+
 public class NameValidationTest {
 
 	static void isValidString() {
@@ -7,9 +9,9 @@ public class NameValidationTest {
 		String name = "rajesh";
 
 		if (NameValidation.checkName(name)) {
-			System.out.println("Valid String Data");
+			Logger.debug("Valid String Data");
 		} else {
-			System.out.println("Invalid String Data");
+			Logger.debug("Invalid String Data");
 		}
 	}
 
@@ -18,9 +20,9 @@ public class NameValidationTest {
 		String name = "";
 
 		if (NameValidation.checkName(name)) {
-			System.out.println("Valid String Data");
+			Logger.debug("Valid String Data");
 		} else {
-			System.out.println("Invalid String Data");
+			Logger.debug("Invalid String Data");
 		}
 	}
 
