@@ -7,8 +7,12 @@ public class GroceryTest {
 	public static void main(String[] args) {
 		
 		Grocery grocery = new Grocery(121, "tomoto", "fruits", 20, 50);
-		String data = grocery.toString();
-		Logger.debug(data);
+		Grocery grocery1= new Grocery();
+		
+		grocery1.setCategory("vegitables");
+		
+		Logger.debug(grocery1.getCategory());
+		Logger.debug(grocery);
 		
 	}
 

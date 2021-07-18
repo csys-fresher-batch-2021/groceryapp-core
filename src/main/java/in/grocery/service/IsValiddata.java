@@ -7,6 +7,10 @@ import in.grocery.validator.NameValidation;
 
 public class IsValiddata {
 
+	private IsValiddata() {
+
+	}
+
 	public static boolean isValid(long mobileNo, String password, String name) {
 		boolean flag = false;
 		boolean result1 = false;

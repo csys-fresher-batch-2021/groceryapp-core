@@ -1,11 +1,9 @@
 package in.grocery.dao;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import in.grocery.model.Customers;
-import in.grocery.service.IsValiddata;
 import in.grocery.util.Logger;
 
 public class CustomerDAOTest {
@@ -20,13 +18,17 @@ public class CustomerDAOTest {
 	}
 
 	public static void addCustomer() throws ClassNotFoundException, SQLException {
-		long mobileNo = 6987452310l;
-		String password = "Elumalai12.#";
-		String name = "elumalai";
-		String address = "chennai";
-		if (IsValiddata.isValid(mobileNo, password, name)) {
-			CustomerDAO.addCustomer(305, name, address, mobileNo, password);
-		}
+
+		Customers customer = new Customers();
+
+		customer.setCusId(305);
+		customer.setCusName("Suresh");
+		customer.setCusMobileNo(8987452310l);
+		customer.setCusAddress("chennai");
+		customer.setCusPassword("Suresh@87");
+
+		CustomerDAO.addCustomer(customer);
+
 	}
 
 	public static void checkCustomerDetails() throws Exception, SQLException, ClassNotFoundException {
@@ -39,7 +41,7 @@ public class CustomerDAOTest {
 
 	public static void testShowCustomerDetails() {
 
-		ArrayList<Customers> showCustomerDetails;
+		List<Customers> showCustomerDetails = null;
 		try {
 			showCustomerDetails = CustomerDAO.showCustomerDetails();
 			for (Customers customers : showCustomerDetails) {

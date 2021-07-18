@@ -1,10 +1,5 @@
 package in.grocery.model;
 
-import in.grocery.validator.*;
-import in.grocery.dao.*;
-
-import java.sql.SQLException;
-
 public class Employee {
 
 	int empId;
@@ -22,26 +17,54 @@ public class Employee {
 		this.empPassword = empPassword;
 	}
 
+	public Employee() {
+
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [empId=" + empId + ", empName=" + empName + ", empAddress=" + empAddress + ", empMobileNo="
 				+ empMobileNo + ", empPassword=" + empPassword + "]";
 	}
 
-	public static boolean checkMobileNoPassword(long mobileNumber, String password) throws Exception {
+	public int getEmpId() {
+		return empId;
+	}
 
-		boolean isValidMobileNumber = MobileNoValidation.checkMobileNo(mobileNumber);
-		boolean isValidPassword = PasswordValidation.checkPassword(password);
-		boolean flag = false;
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
 
-		if (isValidMobileNumber && isValidPassword) {
-			try {
-				flag = EmployeeDAO.isEmployee(mobileNumber, password);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return flag;
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+	public String getEmpAddress() {
+		return empAddress;
+	}
+
+	public void setEmpAddress(String empAddress) {
+		this.empAddress = empAddress;
+	}
+
+	public Long getEmpMobileNo() {
+		return empMobileNo;
+	}
+
+	public void setEmpMobileNo(Long empMobileNo) {
+		this.empMobileNo = empMobileNo;
+	}
+
+	public String getEmpPassword() {
+		return empPassword;
+	}
+
+	public void setEmpPassword(String empPassword) {
+		this.empPassword = empPassword;
 	}
 
 }

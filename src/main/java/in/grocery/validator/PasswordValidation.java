@@ -5,6 +5,10 @@ import java.util.regex.Pattern;
 
 public class PasswordValidation {
 
+	private PasswordValidation() {
+
+	}
+
 	public static boolean checkPassword(String password) {
 		boolean isValid = false;
 		if (password == null || password.trim().equals("")) {

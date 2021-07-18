@@ -7,13 +7,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.grocery.exception.DBException;
 import in.grocery.model.Employee;
 import in.grocery.util.ConnectionUtil;
 import in.grocery.util.Logger;
 
 public class EmployeeDAO {
 
-	public static boolean isEmployee(long mobileNo, String password) throws Exception {
+	private EmployeeDAO() {
+
+	}
+
+	public static boolean isEmployee(long mobileNo, String password) throws DBException {
 		Connection con = null;
 		boolean flag = false;
 		PreparedStatement ps = null;
@@ -26,8 +31,9 @@ public class EmployeeDAO {
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				flag = true;
+				Logger.debug("Valid Employee Details");
 			} else {
-				throw new Exception("Invalid Mobile number or Password Try Again");
+				throw new DBException("Invalid Mobile number or Password Try Again");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -69,19 +75,18 @@ public class EmployeeDAO {
 		return employeeList;
 	}
 
-	public static void addEmployee(int empId, String empName, String empAddress, Long empMobileNO, String empPassword)
-			throws ClassNotFoundException, SQLException {
+	public static void addEmployee(Employee insertEmp) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		try {
 			con = ConnectionUtil.getConnection();
 			String sql = "insert into stock_employee(emp_id,emp_name,emp_address,emp_mobile_no,emp_password) values(?,?,?,?,?)";
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, empId);
-			ps.setString(2, empName);
-			ps.setString(3, empAddress);
-			ps.setLong(4, empMobileNO);
-			ps.setString(5, empPassword);
+			ps.setInt(1, insertEmp.getEmpId());
+			ps.setString(2, insertEmp.getEmpName());
+			ps.setString(3, insertEmp.getEmpAddress());
+			ps.setLong(4, insertEmp.getEmpMobileNo());
+			ps.setString(5, insertEmp.getEmpPassword());
 
 			int count = ps.executeUpdate();
 			if (count > 0) {
@@ -130,6 +135,8 @@ public class EmployeeDAO {
 			int count = ps.executeUpdate();
 			if (count > 0) {
 				Logger.debug(count + " row deleted");
+			} else {
+				Logger.debug("Employee ID Not Exists");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {

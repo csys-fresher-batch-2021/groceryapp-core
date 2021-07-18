@@ -13,6 +13,10 @@ import in.grocery.util.Logger;
 
 public class GroceryDAO {
 
+	private GroceryDAO() {
+
+	}
+
 	public static List<Grocery> showGroceryDetails() throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
@@ -21,7 +25,7 @@ public class GroceryDAO {
 
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "select product_id,product_name,category,price,available_quantity from grocery";
+			String sql = "select product_id,product_name,category,price,available_quantity from grocery order by product_id asc";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			groceryList = new ArrayList<>();
@@ -45,7 +49,7 @@ public class GroceryDAO {
 	}
 
 	// Developed by Nelliyarasan
-	public static void addGrocery(int proId, String proName, String category, double price, double quantity)
+	public static void addGrocery(Grocery insertGrocery)
 			throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
@@ -53,11 +57,11 @@ public class GroceryDAO {
 			con = ConnectionUtil.getConnection();
 			String sql = "insert into grocery(product_id,product_name,category,price,available_quantity)values(?,?,?,?,?)";
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, proId);
-			ps.setString(2, proName);
-			ps.setString(3, category);
-			ps.setDouble(4, price);
-			ps.setDouble(5, quantity);
+			ps.setInt(1, insertGrocery.getProId());
+			ps.setString(2, insertGrocery.getProName());
+			ps.setString(3, insertGrocery.getCategory());
+			ps.setDouble(4, insertGrocery.getPrice());
+			ps.setDouble(5, insertGrocery.getQuantity());
 
 			int count = ps.executeUpdate();
 			if (count > 0) {
@@ -84,6 +88,9 @@ public class GroceryDAO {
 			if (count > 0) {
 				Logger.debug(count + " row deleted");
 			}
+			else {
+				Logger.debug("Grocery Not Exists");
+			}
 
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -105,6 +112,9 @@ public class GroceryDAO {
 			int count = ps.executeUpdate();
 			if (count > 0) {
 				Logger.debug(count + " row updated");
+			}
+			else {
+				Logger.debug("Invalid Product ID");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -128,6 +138,9 @@ public class GroceryDAO {
 			int count = ps.executeUpdate();
 			if (count > 0) {
 				Logger.debug(count + " row updated");
+			}
+			else {
+				Logger.debug("Invalid Product ID");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {

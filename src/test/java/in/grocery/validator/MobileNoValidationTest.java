@@ -1,5 +1,6 @@
 package in.grocery.validator;
 
+import in.grocery.exception.ValidationException;
 import in.grocery.util.Logger;
 
 public class MobileNoValidationTest {
@@ -14,7 +15,7 @@ public class MobileNoValidationTest {
 		try {
 			MobileNoValidation.checkMobileNo(mn);
 			Logger.debug("Valid Mobile Number ");
-		} catch (Exception e) {
+		} catch (ValidationException e) {
 			String errorMessage = e.getMessage();
 			Logger.debug("Exception :  " + errorMessage);
 			e.printStackTrace();
@@ -25,7 +26,7 @@ public class MobileNoValidationTest {
 		try {
 			MobileNoValidation.checkMobileNo(mn);
 			Logger.debug("Valid Mobile Number ");
-		} catch (Exception e) {
+		} catch (ValidationException e) {
 			String errorMessage = e.getMessage();
 			Logger.debug("Exception :  " + errorMessage);
 			e.printStackTrace();

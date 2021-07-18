@@ -9,12 +9,16 @@ import java.sql.SQLException;
 public class ConnectionUtil {
 
 	/**
-	 * Hiding my driverclass name , connection url , username and password 
-	 * For security purpose
+	 * Hiding my driverclass name , connection url , username and password For
+	 * security purpose
 	 */
-	
+
+	private ConnectionUtil() {
+
+	}
+
 	static String driverClass = System.getenv("DB_DRIVER_NAME");
-	static String url = System.getenv("DB_URL"); 
+	static String url = System.getenv("DB_URL");
 	static String username = System.getenv("DB_USERNAME");
 	static String password = System.getenv("DB_PW");
 

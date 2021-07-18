@@ -1,28 +1,18 @@
 package in.grocery.model;
 
-import java.sql.SQLException;
-import java.util.List;
-
-import in.grocery.dao.CustomerItemsDAO;
 import in.grocery.util.Logger;
 
 public class GroupCustomerItemsTest {
 
 	public static void main(String[] args) {
-
-		try {
-			List<GroupCustomerItems> showCustomerPurchase = CustomerItemsDAO.showCustomerPurchase();
-			for (GroupCustomerItems groupCustomerItems : showCustomerPurchase) {
-				Logger.debug(groupCustomerItems);
-
-			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		GroupCustomerItems groupcustomer = new GroupCustomerItems(301,345,40,385);
+		GroupCustomerItems groupcustomer1 = new GroupCustomerItems();
+		
+		groupcustomer1.setGroupGstPrice(45);
+		
+		Logger.debug(groupcustomer1.getGroupGstPrice());
+		Logger.debug(groupcustomer);
 
 	}
 

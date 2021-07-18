@@ -1,7 +1,7 @@
 package in.grocery.dao;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import in.grocery.model.Grocery;
 import in.grocery.util.Logger;
@@ -14,12 +14,13 @@ public class GroceryDAOTest {
 		showGrocery();
 		// upodatePrice();
 		// updateQuantity();
+		// removeGrocery();
 
 	}
 
 	public static void showGrocery() {
 		try {
-			ArrayList<Grocery> showGroceryDetails = GroceryDAO.showGroceryDetails();
+			List<Grocery> showGroceryDetails = GroceryDAO.showGroceryDetails();
 
 			for (Grocery grocery : showGroceryDetails) {
 				Logger.debug(grocery);
@@ -31,8 +32,17 @@ public class GroceryDAOTest {
 	}
 
 	public static void insertGrocery() {
+
+		Grocery insertGrocery = new Grocery();
+
+		insertGrocery.setProId(214);
+		insertGrocery.setProName("Potato");
+		insertGrocery.setCategory("Vegetables");
+		insertGrocery.setPrice(40);
+		insertGrocery.setQuantity(3);
+
 		try {
-			GroceryDAO.addGrocery(210, "tomoto", "fruit", 20, 60);
+			GroceryDAO.addGrocery(insertGrocery);
 
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
@@ -51,6 +61,16 @@ public class GroceryDAOTest {
 	public static void updateQuantity() {
 		try {
 			GroceryDAO.updateGroceryQuantity(210, 50);
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void removeGrocery() {
+
+		try {
+			GroceryDAO.removeGrocery(210);
+
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -30,4 +30,64 @@ public class CustomerItems {
 		this.purhaseTime = purhaseTime;
 	}
 
+	public CustomerItems() {
+
+	}
+
+	public int getCusId() {
+		return cusId;
+	}
+
+	public void setCusId(int cusId) {
+		this.cusId = cusId;
+	}
+
+	public int getProId() {
+		return proId;
+	}
+
+	public void setProId(int proId) {
+		this.proId = proId;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public double getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(double quantity) {
+		this.quantity = quantity;
+	}
+
+	public double getGstPirce() {
+		return gstPirce;
+	}
+
+	public void setGstPirce(double gstPirce) {
+		this.gstPirce = gstPirce;
+	}
+
+	public double getNetPrice() {
+		return netPrice;
+	}
+
+	public void setNetPrice(double netPrice) {
+		this.netPrice = netPrice;
+	}
+
+	public LocalDateTime getPurhaseTime() {
+		return purhaseTime;
+	}
+
+	public void setPurhaseTime(LocalDateTime purhaseTime) {
+		this.purhaseTime = purhaseTime;
+	}
+
 }

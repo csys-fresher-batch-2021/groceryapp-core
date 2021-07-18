@@ -3,12 +3,17 @@ package in.grocery.dao;
 import java.sql.*;
 import java.util.*;
 
+import in.grocery.exception.DBException;
 import in.grocery.model.Customers;
 import in.grocery.util.*;
 
 public class CustomerDAO {
 
-	public static boolean isCustomer(long mobileNo, String password) throws Exception {
+	private CustomerDAO() {
+
+	}
+
+	public static boolean isCustomer(long mobileNo, String password) throws DBException {
 		Connection con = null;
 		boolean flag = false;
 		PreparedStatement ps = null;
@@ -22,7 +27,7 @@ public class CustomerDAO {
 			if (rs.next()) {
 				flag = true;
 			} else {
-				throw new Exception("Invalid Mobile number or Password Try Again");
+				throw new DBException("Invalid Mobile number or Password Try Again");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -49,24 +54,23 @@ public class CustomerDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConnectionUtil.close(pst,con);
+			ConnectionUtil.close(pst, con);
 		}
 		return userMobileNo;
 	}
 
-	public static void addCustomer(int customerId, String customerName, String customerAddress, Long mobileNo,
-			String password) throws ClassNotFoundException, SQLException {
+	public static void addCustomer(Customers customer) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		try {
 			con = ConnectionUtil.getConnection();
 			String sql = "insert into grocery_customers(cus_id,cus_name,cus_address,cus_mobile_no,cus_password) VALUES(?,?,?,?,?)";
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, customerId);
-			ps.setString(2, customerName);
-			ps.setString(3, customerAddress);
-			ps.setLong(4, mobileNo);
-			ps.setString(5, password);
+			ps.setInt(1, customer.getCusId());
+			ps.setString(2, customer.getCusName());
+			ps.setString(3, customer.getCusAddress());
+			ps.setLong(4, customer.getCusMobileNo());
+			ps.setString(5, customer.getCusPassword());
 
 			int count = ps.executeUpdate();
 			if (count > 0) {
@@ -122,8 +126,11 @@ public class CustomerDAO {
 			ps.setInt(1, customerId);
 
 			int count = ps.executeUpdate();
+
 			if (count > 0) {
 				Logger.debug(count + " row updated");
+			} else {
+				Logger.debug("Invalid Customer ID");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -145,8 +152,11 @@ public class CustomerDAO {
 			ps.setLong(2, mobileNo);
 
 			int count = ps.executeUpdate();
+
 			if (count > 0) {
 				Logger.debug(count + " row updated");
+			} else {
+				Logger.debug("Invalid Customer ID");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
