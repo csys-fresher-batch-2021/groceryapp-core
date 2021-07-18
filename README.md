@@ -150,6 +150,11 @@ insert into customer_items(cus_id,product_id,price,quantity,gst_price,net_price)
 select cus_id,product_id,price,quantity,gst_price,net_price,purchase_time from customer_items;
 ```
 
+#### Remove a Product From CustomerItems
+```sql
+delete customer_items where cus_id = 303 and product_id = 210;
+```
+
 #### Display Purchase History Customers
 ```sql
 select cus_id,sum(price) price,sum(gst_price) total_gst,sum(net_price) grant_total from customer_items group by cus_id order by sum(net_price) desc;

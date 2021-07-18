@@ -11,8 +11,8 @@ public class EmployeeDAOTest {
 	public static void main(String[] args) {
 
 		deleteEmployee();
-		//addEmployee();
-		//getEmployeeList();
+		// addEmployee();
+		// getEmployeeList();
 		// changeEmployeePassword();
 		// isValidEmployee();
 		// isInValidEmployee();
@@ -20,7 +20,7 @@ public class EmployeeDAOTest {
 	}
 
 	public static void isValidEmployee() {
-		
+
 		try {
 			EmployeeDAO.isEmployee(9874563054l, "Hello123#8");
 
@@ -32,7 +32,7 @@ public class EmployeeDAOTest {
 	}
 
 	public static void isInValidEmployee() {
-		
+
 		try {
 			EmployeeDAO.isEmployee(987456354l, "Hello1238");
 
@@ -42,51 +42,51 @@ public class EmployeeDAOTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void getEmployeeList() {
-		
+
 		try {
 			List<Employee> showEmployeeDetails = EmployeeDAO.showEmployeeDetails();
 
 			for (Employee employee : showEmployeeDetails) {
 				Logger.debug(employee);
 			}
-			
+
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void addEmployee() {
-	
+
 		Employee insertEmp = new Employee();
-		
+
 		insertEmp.setEmpId(100);
 		insertEmp.setEmpName("Rajesh");
 		insertEmp.setEmpAddress("Tiruttani");
 		insertEmp.setEmpMobileNo(7548851413l);
 		insertEmp.setEmpPassword("Hello123*");
-		
+
 		try {
 			EmployeeDAO.addEmployee(insertEmp);
-			
+
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public static void changeEmployeePassword() {
-		
+
 		try {
 			EmployeeDAO.updateEmployeePassword(9274563210l, "Lavanya@.");
-			
+
 		} catch (SQLException | ClassNotFoundException e) {
 			Logger.debug("Exception:  " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void deleteEmployee() {
 
 		try {

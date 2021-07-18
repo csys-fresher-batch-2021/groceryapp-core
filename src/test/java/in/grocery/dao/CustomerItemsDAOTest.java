@@ -8,26 +8,39 @@ import in.grocery.model.GroupCustomerItems;
 import in.grocery.util.Logger;
 
 public class CustomerItemsDAOTest {
-	
+
 	public static void main(String[] args) {
-		
-		//showAllCustomers();
-		//showGroupCustomer();
+
+		// insertCustomerItems();
+		showAllCustomers();
+		// showGroupCustomer();
+		// removeProducts();
+	}
+
+	public static void insertCustomerItems() {
+
+		try {
+			CustomerItemsDAO.addCustomerItems(303, 210, 30, 2);
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void showAllCustomers() {
+
 		try {
 			List<CustomerItems> showCustomerItemsDetails = CustomerItemsDAO.showCustomerItemsDetails();
 			for (CustomerItems customerItems : showCustomerItemsDetails) {
 				Logger.debug(customerItems);
 			}
 		} catch (SQLException | ClassNotFoundException e) {
-
 			e.printStackTrace();
 		}
 	}
 
 	public static void showGroupCustomer() {
+
 		try {
 			List<GroupCustomerItems> showCustomerPurchase = CustomerItemsDAO.showCustomerPurchase();
 
@@ -38,6 +51,12 @@ public class CustomerItemsDAOTest {
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void removeProducts() {
+
+		CustomerItemsDAO.removeProductInCustomerCart(303, 210);
+
 	}
 
 }

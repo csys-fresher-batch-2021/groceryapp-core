@@ -4,13 +4,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 import in.grocery.dao.GroceryDAO;
-import in.grocery.exception.ValidationException;
 import in.grocery.model.Grocery;
 import in.grocery.util.Logger;
 import in.grocery.validator.IdPriceValidation;
 import in.grocery.validator.NameValidation;
 
 public class GroceryService {
+
+	private GroceryService() {
+
+	}
 
 	public static List<Grocery> getGroceryList() {
 
@@ -25,7 +28,7 @@ public class GroceryService {
 		return showGroceryDetails;
 	}
 
-	public static void addGrocery() throws ValidationException {
+	public static void addGrocery() {
 
 		Grocery insertGrocery = new Grocery();
 

@@ -14,9 +14,9 @@ import in.grocery.util.ConnectionUtil;
 import in.grocery.util.Logger;
 
 public class CustomerItemsDAO {
-	
+
 	private CustomerItemsDAO() {
-		
+
 	}
 
 	public static void addCustomerItems(int cusId, int proId, double price, double quantity)
@@ -31,7 +31,7 @@ public class CustomerItemsDAO {
 			String sql = "insert into customer_items(cus_id,product_id,price,quantity,gst_price,net_price) values(?,?,?,?,?,?)";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, cusId);
-			ps.setDouble(2, proId);
+			ps.setInt(2, proId);
 			ps.setDouble(3, price);
 			ps.setDouble(4, quantity);
 			ps.setDouble(5, gstPrice);
@@ -72,7 +72,7 @@ public class CustomerItemsDAO {
 
 				CustomerItems customerItems = new CustomerItems(cusId, proId, price, quantity, gstPrice, netPrice,
 						purchaseTime);
-				
+
 				customerItemsList.add(customerItems);
 			}
 
@@ -112,6 +112,33 @@ public class CustomerItemsDAO {
 			ConnectionUtil.close(rs, ps, con);
 		}
 		return customerItemsList;
+	}
+
+	public static void removeProductInCustomerCart(int cusId, int proId) {
+
+		PreparedStatement ps = null;
+		Connection con = null;
+
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "delete customer_items where cus_id = ? and product_id = ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, cusId);
+			ps.setInt(2, proId);
+
+			int count = ps.executeUpdate();
+
+			if (count > 0) {
+				Logger.debug(count + " row deleted");
+			} else {
+				Logger.debug("Customer ID OR Product ID Not Exists");
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(ps, con);
+		}
+
 	}
 
 }

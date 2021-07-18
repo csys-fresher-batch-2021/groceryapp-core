@@ -2,7 +2,6 @@ package in.grocery.service;
 
 import java.util.List;
 
-import in.grocery.exception.ValidationException;
 import in.grocery.model.Grocery;
 import in.grocery.util.Logger;
 
@@ -29,12 +28,7 @@ public class GroceryServiceTest {
 
 	public static void insertGrocery() {
 
-		try {
-			GroceryService.addGrocery();
-
-		} catch (ValidationException e) {
-			e.printStackTrace();
-		}
+		GroceryService.addGrocery();
 	}
 
 	public static void updatePrice() {

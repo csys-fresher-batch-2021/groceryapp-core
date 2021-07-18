@@ -49,8 +49,7 @@ public class GroceryDAO {
 	}
 
 	// Developed by Nelliyarasan
-	public static void addGrocery(Grocery insertGrocery)
-			throws ClassNotFoundException, SQLException {
+	public static void addGrocery(Grocery insertGrocery) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		try {
@@ -87,8 +86,7 @@ public class GroceryDAO {
 			int count = ps.executeUpdate();
 			if (count > 0) {
 				Logger.debug(count + " row deleted");
-			}
-			else {
+			} else {
 				Logger.debug("Grocery Not Exists");
 			}
 
@@ -112,8 +110,7 @@ public class GroceryDAO {
 			int count = ps.executeUpdate();
 			if (count > 0) {
 				Logger.debug(count + " row updated");
-			}
-			else {
+			} else {
 				Logger.debug("Invalid Product ID");
 			}
 
@@ -138,8 +135,7 @@ public class GroceryDAO {
 			int count = ps.executeUpdate();
 			if (count > 0) {
 				Logger.debug(count + " row updated");
-			}
-			else {
+			} else {
 				Logger.debug("Invalid Product ID");
 			}
 

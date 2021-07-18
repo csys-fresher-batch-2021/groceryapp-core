@@ -8,14 +8,14 @@ public class CustomerItems {
 	private int proId;
 	private double price;
 	private double quantity;
-	private double gstPirce;
+	private double gstPrice;
 	private double netPrice;
 	private LocalDateTime purhaseTime;
 
 	@Override
 	public String toString() {
 		return "CustomerItems [cusId=" + cusId + ", proId=" + proId + ", price=" + price + ", quantity=" + quantity
-				+ ", gstPirce=" + gstPirce + ", netPrice=" + netPrice + ", purhaseTime=" + purhaseTime + "]";
+				+ ", gstPirce=" + gstPrice + ", netPrice=" + netPrice + ", purhaseTime=" + purhaseTime + "]";
 	}
 
 	public CustomerItems(int cusId, int proId, double price, double quantity, double gstPirce, double netPrice,
@@ -25,7 +25,7 @@ public class CustomerItems {
 		this.proId = proId;
 		this.price = price;
 		this.quantity = quantity;
-		this.gstPirce = gstPirce;
+		this.gstPrice = gstPirce;
 		this.netPrice = netPrice;
 		this.purhaseTime = purhaseTime;
 	}
@@ -67,11 +67,11 @@ public class CustomerItems {
 	}
 
 	public double getGstPirce() {
-		return gstPirce;
+		return gstPrice;
 	}
 
 	public void setGstPirce(double gstPirce) {
-		this.gstPirce = gstPirce;
+		this.gstPrice = gstPirce;
 	}
 
 	public double getNetPrice() {

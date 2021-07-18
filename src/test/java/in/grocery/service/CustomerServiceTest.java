@@ -36,13 +36,13 @@ public class CustomerServiceTest {
 	}
 	
 	public static void getCustomerList() {
-		
+
 		List<Customers> customer = CustomerService.getCustomer();
-		
+
 		for (Customers customers : customer) {
 			Logger.debug(customers);
 		}
-		
+
 	}
 	
 	public static void addCustomer() {
