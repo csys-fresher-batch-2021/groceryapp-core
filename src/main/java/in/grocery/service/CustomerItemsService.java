@@ -8,6 +8,7 @@ import in.grocery.model.CustomerItems;
 import in.grocery.model.GroupCustomerItems;
 import in.grocery.util.Logger;
 import in.grocery.validator.IdPriceValidation;
+import in.grocery.validator.QuantityValidation;
 
 public class CustomerItemsService {
 
@@ -25,8 +26,9 @@ public class CustomerItemsService {
 		boolean checkCusId = IdPriceValidation.checkId(cusId);
 		boolean checkProId = IdPriceValidation.checkId(proId);
 		boolean checkPrice = IdPriceValidation.checkPrice((int) price);
+		boolean checkQuantity = QuantityValidation.checkQuantity((int) quantity);
 
-		if (checkCusId && checkProId && checkPrice) {
+		if (checkCusId && checkProId && checkPrice && checkQuantity) {
 			try {
 				CustomerItemsDAO.addCustomerItems(cusId, proId, price, quantity);
 

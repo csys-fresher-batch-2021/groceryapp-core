@@ -5,6 +5,9 @@ import java.util.List;
 
 import in.grocery.model.Grocery;
 import in.grocery.util.Logger;
+import in.grocery.validator.IdPriceValidation;
+import in.grocery.validator.NameValidation;
+import in.grocery.validator.QuantityValidation;
 
 public class GroceryDAOTest {
 
@@ -19,6 +22,7 @@ public class GroceryDAOTest {
 	}
 
 	public static void showGrocery() {
+
 		try {
 			List<Grocery> showGroceryDetails = GroceryDAO.showGroceryDetails();
 
@@ -41,38 +45,84 @@ public class GroceryDAOTest {
 		insertGrocery.setPrice(40);
 		insertGrocery.setQuantity(3);
 
-		try {
-			GroceryDAO.addGrocery(insertGrocery);
+		boolean checkId = IdPriceValidation.checkId(insertGrocery.getProId());
+		boolean checkName = NameValidation.checkName(insertGrocery.getProName());
+		boolean checkCategory = NameValidation.checkName(insertGrocery.getCategory());
+		boolean checkPrice = IdPriceValidation.checkPrice((int) insertGrocery.getPrice());
+		boolean checkQuantity = QuantityValidation.checkQuantity((int) insertGrocery.getQuantity());
 
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+		if (checkId && checkName && checkCategory && checkPrice && checkQuantity) {
+
+			try {
+				GroceryDAO.addGrocery(insertGrocery);
+
+			} catch (SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		} else {
+			Logger.debug("Invalid Data");
 		}
 	}
 
 	public static void upodatePrice() {
-		try {
-			GroceryDAO.updateGroceryPrice(210, 30);
 
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+		int proId = 216;
+		double proPrice = 50;
+
+		boolean checkId = IdPriceValidation.checkId(proId);
+		boolean checkPrice = IdPriceValidation.checkPrice((int) proPrice);
+
+		if (checkId && checkPrice) {
+
+			try {
+				GroceryDAO.updateGroceryPrice(proId, proPrice);
+
+			} catch (SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		} else {
+			Logger.debug("Invalid Product ID Or Price");
 		}
+
 	}
 
 	public static void updateQuantity() {
-		try {
-			GroceryDAO.updateGroceryQuantity(210, 50);
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+
+		int proId = 215;
+		double quantity = 70;
+
+		boolean checkId = IdPriceValidation.checkId(proId);
+		boolean checkQuantity = QuantityValidation.checkQuantity((int) quantity);
+
+		if (checkId && checkQuantity) {
+
+			try {
+				GroceryDAO.updateGroceryQuantity(proId, quantity);
+
+			} catch (SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		} else {
+			Logger.debug("Invalid Product ID");
 		}
 	}
 
 	public static void removeGrocery() {
 
-		try {
-			GroceryDAO.removeGrocery(210);
+		int proId = 201;
 
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+		boolean checkId = IdPriceValidation.checkId(proId);
+
+		if (checkId) {
+
+			try {
+				GroceryDAO.removeGrocery(proId);
+
+			} catch (SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		} else {
+			Logger.debug("In Valid Product ID");
 		}
 	}
 

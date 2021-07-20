@@ -72,6 +72,7 @@ public class CustomerService {
 		boolean checkPassword = PasswordValidation.checkPassword(customer.getCusPassword());
 
 		if (checkId && checkName && checkAddress && checkMobileNo && checkPassword) {
+			
 			try {
 				CustomerDAO.addCustomer(customer);
 

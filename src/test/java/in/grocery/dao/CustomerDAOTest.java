@@ -3,8 +3,13 @@ package in.grocery.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import in.grocery.exception.ValidationException;
 import in.grocery.model.Customers;
 import in.grocery.util.Logger;
+import in.grocery.validator.IdPriceValidation;
+import in.grocery.validator.MobileNoValidation;
+import in.grocery.validator.NameValidation;
+import in.grocery.validator.PasswordValidation;
 
 public class CustomerDAOTest {
 
@@ -17,7 +22,7 @@ public class CustomerDAOTest {
 
 	}
 
-	public static void addCustomer() throws ClassNotFoundException, SQLException {
+	public static void addCustomer() throws ClassNotFoundException, SQLException, ValidationException {
 
 		Customers customer = new Customers();
 
@@ -27,13 +32,39 @@ public class CustomerDAOTest {
 		customer.setCusAddress("chennai");
 		customer.setCusPassword("Suresh@87");
 
-		CustomerDAO.addCustomer(customer);
+		boolean checkId = IdPriceValidation.checkId(customer.getCusId());
+		boolean checkName = NameValidation.checkName(customer.getCusName());
+		boolean checkAddress = NameValidation.checkName(customer.getCusAddress());
+		boolean checkMobileNo = MobileNoValidation.checkMobileNo(customer.getCusMobileNo());
+		boolean checkPassword = PasswordValidation.checkPassword(customer.getCusPassword());
+
+		if (checkId && checkName && checkAddress && checkMobileNo && checkPassword) {
+
+			try {
+				CustomerDAO.addCustomer(customer);
+
+			} catch (SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
 
 	public static void checkCustomerDetails() throws Exception, SQLException, ClassNotFoundException {
-		boolean temp = CustomerDAO.isCustomer(9824356128l, "grocer123");
-		Logger.debug(temp);
+
+		Long MobileNo = 9824356128l;
+		String Password = "grocer123";
+
+		boolean checkMobileNo = MobileNoValidation.checkMobileNo(MobileNo);
+		boolean checkPassword = PasswordValidation.checkPassword(Password);
+
+		if (checkMobileNo && checkPassword) {
+
+			boolean temp = CustomerDAO.isCustomer(MobileNo, Password);
+			Logger.debug(temp);
+		} else {
+			Logger.debug("Invalid Mobile Number Or Password");
+		}
 
 		List<Long> cusMobileNo = CustomerDAO.getCustomerMobileNumber();
 		Logger.debug(cusMobileNo);
@@ -54,10 +85,20 @@ public class CustomerDAOTest {
 	}
 
 	public static void testUpdateInactiveCustomer() {
-		try {
-			CustomerDAO.updateInactiveCustomer(303);
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+
+		int cusId = 303;
+		boolean checkId = IdPriceValidation.checkId(cusId);
+
+		if (checkId) {
+
+			try {
+				CustomerDAO.updateInactiveCustomer(cusId);
+			} catch (SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			
+		} else {
+			Logger.debug("Invalid Customer ID");
 		}
 	}
 }

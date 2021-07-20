@@ -114,6 +114,8 @@ public class EmployeeDAO {
 			int count = ps.executeUpdate();
 			if (count > 0) {
 				Logger.debug(count + " row updated");
+			} else {
+				Logger.debug("Employee Mobile Number is Invalid");
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {

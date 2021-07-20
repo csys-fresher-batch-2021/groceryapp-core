@@ -3,44 +3,75 @@ package in.grocery.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import in.grocery.exception.ValidationException;
 import in.grocery.model.Employee;
 import in.grocery.util.Logger;
+import in.grocery.validator.IdPriceValidation;
+import in.grocery.validator.MobileNoValidation;
+import in.grocery.validator.NameValidation;
+import in.grocery.validator.PasswordValidation;
 
 public class EmployeeDAOTest {
 
 	public static void main(String[] args) {
 
-		deleteEmployee();
+		// deleteEmployee();
 		// addEmployee();
-		// getEmployeeList();
+		getEmployeeList();
 		// changeEmployeePassword();
 		// isValidEmployee();
 		// isInValidEmployee();
 
 	}
 
-	public static void isValidEmployee() {
+	public static void isValidEmployee() throws ValidationException {
 
-		try {
-			EmployeeDAO.isEmployee(9874563054l, "Hello123#8");
+		Long empMobileNo = 9874563054l;
+		String empPassword = "Hello123#8";
 
-		} catch (Exception e) {
-			String errorMessage = e.getMessage();
-			Logger.debug("Exception : " + errorMessage);
-			e.printStackTrace();
+		boolean checkMobileNo = MobileNoValidation.checkMobileNo(empMobileNo);
+		boolean checkPassword = PasswordValidation.checkPassword(empPassword);
+
+		if (checkMobileNo && checkPassword) {
+
+			try {
+				EmployeeDAO.isEmployee(empMobileNo, empPassword);
+
+			} catch (Exception e) {
+				String errorMessage = e.getMessage();
+				Logger.debug("Exception : " + errorMessage);
+				e.printStackTrace();
+			}
+
+		} else {
+			Logger.debug("Mobile Number Or Password Incorrect");
 		}
+
 	}
 
-	public static void isInValidEmployee() {
+	public static void isInValidEmployee() throws ValidationException {
 
-		try {
-			EmployeeDAO.isEmployee(987456354l, "Hello1238");
+		Long empMobileNo = 9874563054l;
+		String empPassword = "Hello123#8";
 
-		} catch (Exception e) {
-			String errorMessage = e.getMessage();
-			Logger.debug("Exception : " + errorMessage);
-			e.printStackTrace();
+		boolean checkMobileNo = MobileNoValidation.checkMobileNo(empMobileNo);
+		boolean checkPassword = PasswordValidation.checkPassword(empPassword);
+
+		if (checkMobileNo && checkPassword) {
+
+			try {
+				EmployeeDAO.isEmployee(empMobileNo, empPassword);
+
+			} catch (Exception e) {
+				String errorMessage = e.getMessage();
+				Logger.debug("Exception : " + errorMessage);
+				e.printStackTrace();
+			}
+
+		} else {
+			Logger.debug("Mobile Number Or Password Incorrect");
 		}
+
 	}
 
 	public static void getEmployeeList() {
@@ -57,7 +88,7 @@ public class EmployeeDAOTest {
 		}
 	}
 
-	public static void addEmployee() {
+	public static void addEmployee() throws ValidationException {
 
 		Employee insertEmp = new Employee();
 
@@ -65,37 +96,70 @@ public class EmployeeDAOTest {
 		insertEmp.setEmpName("Rajesh");
 		insertEmp.setEmpAddress("Tiruttani");
 		insertEmp.setEmpMobileNo(7548851413l);
-		insertEmp.setEmpPassword("Hello123*");
+		insertEmp.setEmpPassword("Hello123#");
 
-		try {
-			EmployeeDAO.addEmployee(insertEmp);
+		boolean checkId = IdPriceValidation.checkId(insertEmp.getEmpId());
+		boolean checkName = NameValidation.checkName(insertEmp.getEmpName());
+		boolean checkAddress = NameValidation.checkName(insertEmp.getEmpAddress());
+		boolean checkMobileNo = MobileNoValidation.checkMobileNo(insertEmp.getEmpMobileNo());
+		boolean checkPassword = PasswordValidation.checkPassword(insertEmp.getEmpPassword());
 
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+		if (checkId && checkName && checkAddress && checkMobileNo && checkPassword) {
+
+			try {
+				EmployeeDAO.addEmployee(insertEmp);
+
+			} catch (SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		} else {
+			Logger.debug("Invalid Data");
 		}
-
 	}
 
-	public static void changeEmployeePassword() {
+	public static void changeEmployeePassword() throws ValidationException {
 
-		try {
-			EmployeeDAO.updateEmployeePassword(9274563210l, "Lavanya@.");
+		Long empMobileNo = 9874563054l;
+		String empPassword = "Hellohi123#8";
 
-		} catch (SQLException | ClassNotFoundException e) {
-			Logger.debug("Exception:  " + e.getMessage());
-			e.printStackTrace();
+		boolean checkMobileNo = MobileNoValidation.checkMobileNo(empMobileNo);
+		boolean checkPassword = PasswordValidation.checkPassword(empPassword);
+
+		if (!checkPassword) {
+			Logger.debug("More Strong your Password");
+		}
+
+		if (checkMobileNo && checkPassword) {
+
+			try {
+				EmployeeDAO.updateEmployeePassword(empMobileNo, empPassword);
+
+			} catch (SQLException | ClassNotFoundException e) {
+				Logger.debug("Exception:  " + e.getMessage());
+				e.printStackTrace();
+			}
+		} else {
+			Logger.debug("Incorrect Mobile Number");
 		}
 	}
 
 	public static void deleteEmployee() {
 
-		try {
-			EmployeeDAO.removeEmployee(100);
+		int empId = 301;
 
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+		boolean checkId = IdPriceValidation.checkId(empId);
+
+		if (checkId) {
+
+			try {
+				EmployeeDAO.removeEmployee(empId);
+
+			} catch (SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		} else {
+			Logger.debug("In Valid Employee ID");
 		}
-
 	}
 
 }
