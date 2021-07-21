@@ -1,18 +1,21 @@
 package in.grocery.validator;
 
 public class QuantityValidation {
-	
+
 	private QuantityValidation() {
-		
+
 	}
-	
+
 	public static boolean checkQuantity(int quantity) {
 
+		boolean flag = false;
+
 		if (quantity > 0) {
-			return true;
+			flag = true;
 		} else {
-			return false;
+			flag = false;
 		}
+		return flag;
 	}
 
 }

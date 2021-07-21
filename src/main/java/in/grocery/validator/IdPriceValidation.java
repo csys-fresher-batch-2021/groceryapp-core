@@ -8,21 +8,26 @@ public class IdPriceValidation {
 
 	public static boolean checkId(int id) {
 
-		if (id >= 100) {
-			return true;
-		} else {
-			return false;
-		}
+		boolean flag = false;
 
+		if (id >= 100) {
+			flag = true;
+		} else {
+			flag = false;
+		}
+		return flag;
 	}
 
 	public static boolean checkPrice(int price) {
 
+		boolean flag = false;
+
 		if (price >= 0) {
-			return true;
+			flag = true;
 		} else {
-			return false;
+			flag = false;
 		}
+		return flag;
 	}
 
 }

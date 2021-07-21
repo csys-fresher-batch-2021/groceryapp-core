@@ -8,11 +8,14 @@ public class NameValidation {
 
 	public static boolean checkName(String name) {
 
+		boolean flag = false;
+
 		if (name == null || name.trim().equals("")) {
-			return false;
+			flag = false;
 		} else {
-			return true;
+			flag = true;
 		}
+		return flag;
 	}
 
 }
